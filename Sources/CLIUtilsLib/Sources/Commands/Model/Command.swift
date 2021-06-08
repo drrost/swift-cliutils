@@ -10,7 +10,7 @@ import ExtensionsFoundation
 
 open class Command {
 
-    var command: String { arguments.name }
+    var name: String { arguments.name }
     public var operands: [String] { arguments.operands }
     public var options: [CommandOption] { arguments.options }
     public var shellRunner: IShellRunner
