@@ -4,19 +4,36 @@ import PackageDescription
 
 let package = Package(
     name: "CLIUtils",
+    platforms: [
+        .macOS(.v10_15)
+    ],
     products: [
-        .library(
+        .executable(
             name: "CLIUtils",
             targets: ["CLIUtils"]),
+        .library(
+            name: "CLIUtilsLib",
+            targets: ["CLIUtilsLib"]),
     ],
     dependencies: [
+        .package(
+            name: "ExtensionsFoundation",
+            url: "git@github.com:drrost/swift-extensions-foundation.git",
+            from: "1.0.0"),
+        .package(
+            name: "RDError",
+            url: "git@github.com:drrost/swift-error.git",
+            from: "1.0.0")
     ],
     targets: [
         .target(
             name: "CLIUtils",
-            dependencies: []),
+            dependencies: ["CLIUtilsLib"]),
+        .target(
+            name: "CLIUtilsLib",
+            dependencies: ["ExtensionsFoundation", "RDError"]),
         .testTarget(
-            name: "CLIUtilsTests",
-            dependencies: ["CLIUtils"]),
+            name: "CLIUtilsLibTests",
+            dependencies: ["CLIUtilsLib"]),
     ]
 )
