@@ -36,7 +36,7 @@ open class CommandFactory {
         case "pwd":
             return CommandPwd(arguments)
         case "help":
-            return CommandHelp(arguments, COMMAND_LIST)
+            return CommandHelp(arguments, COMMAND_LIST.keys.sorted())
         case "rename":
             return CommandRenameFile(arguments)
         default:

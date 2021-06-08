@@ -9,19 +9,19 @@ import Foundation
 
 open class CommandHelp: Command {
 
-    let commandList: [String: Command.Type]
+    let commandList: [String]
 
     private override init(
         _ arguments: CommandArguments,
         _ shellRunner: IShellRunner = ShellRunner()) {
 
-        commandList = [String: Command.Type]()
+        commandList = [String]()
         super.init(arguments, shellRunner)
     }
 
     public init(
         _ arguments: CommandArguments,
-        _ commandList: [String: Command.Type],
+        _ commandList: [String],
         _ shellRunner: IShellRunner = ShellRunner()) {
 
         self.commandList = commandList
@@ -29,7 +29,7 @@ open class CommandHelp: Command {
     }
 
     open override func exec() {
-        for name in commandList.keys.sorted() {
+        for name in commandList {
             System.out.println(name)
         }
     }
