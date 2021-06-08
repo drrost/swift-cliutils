@@ -10,7 +10,7 @@ import Foundation
 public class CommandPwd: Command {
 
     public convenience init() {
-        self.init("", [])
+        self.init(CommandArguments(""))
     }
 
     public override func exec() {
