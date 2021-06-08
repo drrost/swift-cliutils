@@ -19,7 +19,7 @@ open class CommandHelp: Command {
         super.init(arguments, shellRunner)
     }
 
-    init(
+    public init(
         _ arguments: CommandArguments,
         _ commandList: [String: Command.Type],
         _ shellRunner: IShellRunner = ShellRunner()) {
