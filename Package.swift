@@ -34,6 +34,9 @@ let package = Package(
             dependencies: ["ExtensionsFoundation", "RDError"]),
         .testTarget(
             name: "CLIUtilsLibTests",
-            dependencies: ["CLIUtilsLib"]),
+            dependencies: [
+                "CLIUtilsLib",
+                .product(name: "ExtensionXCTest", package: "ExtensionsFoundation")
+            ]),
     ]
 )

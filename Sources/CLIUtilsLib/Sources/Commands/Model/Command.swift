@@ -10,12 +10,16 @@ import ExtensionsFoundation
 
 open class Command {
 
+    // MARK: - Variables
+
     var name: String { arguments.name }
     public var operands: [String] { arguments.operands }
     public var options: [CommandOption] { arguments.options }
     public var shellRunner: IShellRunner
 
     private let arguments: CommandArguments
+
+    // MARK: - Init
 
     private init() {
         arguments = CommandArguments("")
@@ -30,7 +34,19 @@ open class Command {
         self.shellRunner = shellRunner
     }
 
+    // MARK: - Public
+
     open func exec() {}
+
+    // MARK: - Internal
+
+    func printIlligalOption(_ option: String) {
+        System.err.println("\(name): illegal option -- \(option)")
+    }
+
+    func printUsage() {
+        System.err.println("usage: \(name) [-...] [...]")
+    }
 }
 
 public class CommandNop: Command {

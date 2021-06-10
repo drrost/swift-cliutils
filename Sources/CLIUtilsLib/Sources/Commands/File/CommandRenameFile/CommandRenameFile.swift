@@ -18,25 +18,26 @@ public class CommandRenameFile: Command {
 
     open override func exec() {
 
-        // Handle options
-        // If there is an unkonwn option - print to stderr
         for option in options {
             if option.symbol == "R" {
 
             } else {
                 printIlligalOption(option.symbol)
                 printUsage()
+                return
             }
         }
+
+        // Get files/folders
+    }
+
+    override func printUsage() {
+        System.err.println("usage: \(name) [-R] [path]")
     }
 
     // MARK: - Private
 
-    private func printIlligalOption(_ option: String) {
-        System.err.println("\(name): illegal option -- \(option)")
-    }
-
-    private func printUsage() {
-        System.err.println("usage: \(name) [-R] [path]")
+    private func getAllEntities() -> [File] {
+        []
     }
 }
