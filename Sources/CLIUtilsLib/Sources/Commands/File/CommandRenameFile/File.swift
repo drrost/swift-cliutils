@@ -36,7 +36,7 @@ public class File {
 
     public func listFilesR(_ filter: Filter = {_ in true}) throws -> [File] {
 
-        let files = try listFiles(filter)
+        let files = try listFiles()
 
         let content = try files.filter {
             $0.isDirectory()
@@ -44,7 +44,7 @@ public class File {
             $0 + (try $1.listFilesR(filter))
         }
 
-        return files + content
+        return files.filter { filter($0.path) } + content
     }
 }
 

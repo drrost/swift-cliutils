@@ -16,7 +16,7 @@ class FileTests: CleanableTestCase {
     // MARK: - Variables
 
     open override var directoriesToDelete: [String] {
-        ["/tmp/a"]
+        ["/tmp/a", "/tmp/z"]
     }
 
     var sut: FileTests!
@@ -111,17 +111,19 @@ class FileTests: CleanableTestCase {
 
     func testListFilesRFilter() {
         // Given
-        try! FileManager.createDirectory("/tmp/a/b/")
-        try! FileManager.createDirectory("/tmp/a/adb/")
-        try! FileManager.createDirectory("/tmp/a/c/")
-        try! FileManager.createDirectory("/tmp/a/a/")
-        try! FileManager.createDirectory("/tmp/a/aa/")
-        try! FileManager.createDirectory("/tmp/a/aa/ac")
-        try! FileManager.createDirectory("/tmp/a/aa/dd")
-        try! FileManager.createDirectory("/tmp/a/aa/a")
+        try! FileManager.createDirectory("/tmp/z/b/")
+        try! FileManager.createDirectory("/tmp/z/adb/")
+        try! FileManager.createDirectory("/tmp/z/c/")
+        try! FileManager.createDirectory("/tmp/z/a/")
+        try! FileManager.createDirectory("/tmp/z/aa/")
+        try! FileManager.createDirectory("/tmp/z/aa/ac")
+        try! FileManager.createDirectory("/tmp/z/aa/dd")
+        try! FileManager.createDirectory("/tmp/z/aa/a")
 
         // When
-        let list = try! File("/tmp/a").listFilesR({ $0.matches("a")})
+        let list = try! File("/tmp/z").listFilesR {
+            $0.lastPathComponent.matches("a")
+        }
 
         // Then
         XCTAssertEqual(5, list.count)

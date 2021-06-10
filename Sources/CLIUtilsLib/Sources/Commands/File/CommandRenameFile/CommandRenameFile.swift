@@ -23,21 +23,16 @@ public class CommandRenameFile: Command {
 
         guard let _ = try? handleInput() else { return }
 
-        System.out.println("!!!")
-//        let path = "/Users/rost/Downloads/temp/paymenthandler-mock"
         let path = CommandPwd().pwd()
 
-        System.out.println("pwd: \(path)")
-
         let file = File(path)
-
-        var list = try! file.listFilesR()
-
-        list = list.filter { $0.path.matches("Mock") }
-
-        list.forEach { System.out.println("\($0.path)") }
-
-        // Get files/folders
+        var list = try! file.listFilesR {
+            $0.lastPathComponent.matches("Mock")
+        }.sorted {
+            $1.isDirectory()
+        }.forEach {
+            System.out.println("\($0.path)")
+        }
     }
 
     override func printUsage() {
