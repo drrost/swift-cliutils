@@ -7,6 +7,9 @@
 
 import Foundation
 
+import RDError
+import ExtensionsFoundation
+
 /**
  Renames file(s) and/or folder(s) recurcively.
 
@@ -18,15 +21,21 @@ public class CommandRenameFile: Command {
 
     open override func exec() {
 
-        for option in options {
-            if option.symbol == "R" {
+        guard let _ = try? handleInput() else { return }
 
-            } else {
-                printIlligalOption(option.symbol)
-                printUsage()
-                return
-            }
-        }
+        System.out.println("!!!")
+//        let path = "/Users/rost/Downloads/temp/paymenthandler-mock"
+        let path = CommandPwd().pwd()
+
+        System.out.println("pwd: \(path)")
+
+        let file = File(path)
+
+        var list = try! file.listFilesR()
+
+        list = list.filter { $0.path.matches("Mock") }
+
+        list.forEach { System.out.println("\($0.path)") }
 
         // Get files/folders
     }
@@ -37,7 +46,22 @@ public class CommandRenameFile: Command {
 
     // MARK: - Private
 
-    private func getAllEntities() -> [File] {
-        []
+    private func handleInput() throws {
+
+        for option in options {
+            if option.symbol == "R" {
+
+            } else {
+                printIlligalOption(option.symbol)
+                printUsage()
+                throw RDError("Invalid input")
+            }
+        }
+
+        if operands.count == 0 {
+            System.err.println("Path is not specified")
+            printUsage()
+            throw RDError("Invalid input")
+        }
     }
 }

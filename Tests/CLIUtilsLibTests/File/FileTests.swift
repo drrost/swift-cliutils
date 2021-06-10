@@ -35,6 +35,24 @@ class FileTests: CleanableTestCase {
         XCTAssertEqual(1, list.count)
     }
 
+    func testListFilter() {
+        // Given
+        try! FileManager.createDirectory("/tmp/a/b/")
+        try! FileManager.createDirectory("/tmp/a/adb/")
+        try! FileManager.createDirectory("/tmp/a/c/")
+        try! FileManager.createDirectory("/tmp/a/a/")
+        try! FileManager.createDirectory("/tmp/a/aa/")
+
+        // When
+        let list = try! File("/tmp/a").list({ $0.matches("a")})
+
+        // Then
+        XCTAssertEqual(3, list.count)
+        XCTAssertEqual("a", list[0])
+        XCTAssertEqual("adb", list[1])
+        XCTAssertEqual("aa", list[2])
+    }
+
     func testListR() {
         // Given
         let path = "/tmp/a/b/c/d"
@@ -59,6 +77,26 @@ class FileTests: CleanableTestCase {
         XCTAssertEqual(1, list.count)
     }
 
+    func testListFilesFilter() {
+        // Given
+        try! FileManager.createDirectory("/tmp/a/b/")
+        try! FileManager.createDirectory("/tmp/a/adb/")
+        try! FileManager.createDirectory("/tmp/a/c/")
+        try! FileManager.createDirectory("/tmp/a/a/")
+        try! FileManager.createDirectory("/tmp/a/aa/")
+
+        // When
+        let list = try! File("/tmp/a").listFiles({ $0.matches("a")}).map {
+            $0.path.lastPathComponent
+        }
+
+        // Then
+        XCTAssertEqual(3, list.count)
+        XCTAssertEqual("a", list[0])
+        XCTAssertEqual("adb", list[1])
+        XCTAssertEqual("aa", list[2])
+    }
+
     func testListFilesR() {
         // Given
         let path = "/tmp/a/b/c/d"
@@ -69,5 +107,23 @@ class FileTests: CleanableTestCase {
 
         // Then
         XCTAssertEqual(3, list.count)
+    }
+
+    func testListFilesRFilter() {
+        // Given
+        try! FileManager.createDirectory("/tmp/a/b/")
+        try! FileManager.createDirectory("/tmp/a/adb/")
+        try! FileManager.createDirectory("/tmp/a/c/")
+        try! FileManager.createDirectory("/tmp/a/a/")
+        try! FileManager.createDirectory("/tmp/a/aa/")
+        try! FileManager.createDirectory("/tmp/a/aa/ac")
+        try! FileManager.createDirectory("/tmp/a/aa/dd")
+        try! FileManager.createDirectory("/tmp/a/aa/a")
+
+        // When
+        let list = try! File("/tmp/a").listFilesR({ $0.matches("a")})
+
+        // Then
+        XCTAssertEqual(5, list.count)
     }
 }

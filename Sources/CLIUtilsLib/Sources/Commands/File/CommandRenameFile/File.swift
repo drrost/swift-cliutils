@@ -8,44 +8,41 @@
 import Foundation
 import ExtensionsFoundation
 
-class File {
+public typealias Filter = ((String) -> Bool)
+
+public class File {
 
     let path: String
 
-    init(_ pathname: String) {
+    public init(_ pathname: String) {
         self.path = pathname
     }
 
-    func isDirectory() -> Bool {
+    public func isDirectory() -> Bool {
         FileManager.isDirectory(path)
     }
 
-    func list() throws -> [String] {
-        try FileManager.list(path)
+    public func list(_ filter: Filter = {_ in true}) throws -> [String] {
+        try FileManager.list(path).filter { filter($0) }
     }
 
-    func listR() throws -> [String] {
-        let list = try listFilesR()
-        return list.map { $0.path }
+    public func listR(_ filter: Filter = {_ in true}) throws -> [String] {
+        try listFilesR(filter).map { $0.path }
     }
 
-    func listFiles() throws -> [File] {
-
-        let list = try list()
-
-        let files = list.map { File(path.appendingPathComponent($0)) }
-
-        return files
+    public func listFiles(_ filter: Filter = {_ in true}) throws -> [File] {
+        try list().filter { filter($0) }.map { File(path.appendingPathComponent($0)) }
     }
 
-    func listFilesR() throws -> [File] {
+    public func listFilesR(_ filter: Filter = {_ in true}) throws -> [File] {
 
-        let files = try listFiles()
+        let files = try listFiles(filter)
 
         var recList = [File]()
+        
         for file in files {
             if file.isDirectory() {
-                let inList = try file.listFilesR()
+                let inList = try file.listFilesR(filter)
                 recList += inList
             }
         }
