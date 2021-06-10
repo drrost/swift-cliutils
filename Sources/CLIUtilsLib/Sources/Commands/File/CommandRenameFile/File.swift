@@ -38,16 +38,13 @@ public class File {
 
         let files = try listFiles(filter)
 
-        var recList = [File]()
-        
-        for file in files {
-            if file.isDirectory() {
-                let inList = try file.listFilesR(filter)
-                recList += inList
-            }
+        let content = try files.filter {
+            $0.isDirectory()
+        }.reduce([File]()) {
+            $0 + (try $1.listFilesR(filter))
         }
 
-        return files + recList
+        return files + content
     }
 }
 
