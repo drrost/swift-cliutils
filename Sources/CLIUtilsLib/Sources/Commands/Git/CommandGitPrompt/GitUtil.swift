@@ -57,7 +57,15 @@ private class GitUtilImpl: IGitUtil {
 
     func localCommits() throws -> Int {
         if !_isGitRepository { return 0 }
-        return 0
+        let result = shellRunner.execute("cd \(path) && git cherry -v")
+
+        if result.exitCode != 0 {
+            throw RDError(result.stderr)
+        }
+
+        let count = result.stdout.split("\n").count
+
+        return count
     }
 
     func remoteCommits() throws -> Int {

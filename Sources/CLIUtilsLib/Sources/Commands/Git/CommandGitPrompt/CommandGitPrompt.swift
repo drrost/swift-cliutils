@@ -26,6 +26,7 @@ class CommandGitPrompt: Command {
             System.out.println("Is in a git repository")
             System.out.println("On branch: \(state.branch)")
             System.out.println("Files changed: \(state.localFilesChanged)")
+            System.out.println("Local commits: \(state.localCommits)")
         } else {
             System.err.println("Is NOT in a git repository")
         }
