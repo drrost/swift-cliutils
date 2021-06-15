@@ -66,10 +66,3 @@ class GitUtilMock: IGitUtil {
         ""
     }
 }
-
-class ShellRunnerMock: IShellRunner {
-
-    func execute(_ line: String) -> ShellResult {
-        ShellResult("", "", 0)
-    }
-}

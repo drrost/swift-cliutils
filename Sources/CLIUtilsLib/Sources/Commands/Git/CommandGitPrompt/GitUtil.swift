@@ -23,12 +23,12 @@ class GitUtil {
     }
 }
 
-private class GitUtilImpl: IGitUtil {
+class GitUtilImpl: IGitUtil {
 
     private let path: String
     private let shellRunner: IShellRunner
 
-    private var _isGitRepository: Bool = false
+    var _isGitRepository: Bool = false
 
     required init(_ path: String, _ shellRunner: IShellRunner) {
         self.path = path
@@ -56,43 +56,11 @@ private class GitUtilImpl: IGitUtil {
     }
 
     func localCommits() throws -> Int {
-        if !_isGitRepository { return 0 }
-        let result = shellRunner.execute("cd \(path) && git cherry -v")
-
-        if result.exitCode != 0 {
-            throw RDError(result.stderr)
-        }
-
-        let count = result.stdout.split("\n").count
-
-        return count
+        try getCommits("local")
     }
 
     func remoteCommits() throws -> Int {
-        if !_isGitRepository { return 0 }
-
-        let result = shellRunner.execute(
-            "cd \(path) && git for-each-ref --format=\"%(push:track)\" refs/heads")
-
-        if result.exitCode != 0 {
-            throw RDError(result.stderr)
-        }
-
-        // Expected output:
-        //   [ahead 3, behind 2]
-        //
-        let numbersArray = try result.stdout.regex("behind [0-9]+")
-
-        if numbersArray.count < 1 {
-            return 0
-        }
-
-
-        let countCandidate = numbersArray[0]
-        if let count = Int(countCandidate) {
-            return count
-        }
-        throw RDError("Can't convert \(countCandidate) to string")
+        try getCommits("remote")
     }
 
     func branchName() throws -> String {
@@ -106,5 +74,40 @@ private class GitUtilImpl: IGitUtil {
             throw RDError(result.stderr)
         }
         return result.stdout.trimN()
+    }
+
+    // MARK: - Private
+
+    private func getCommits(_ input: String) throws -> Int {
+
+        if input != "local" && input != "remote" {
+            throw RDError("`input` must be either `local` or `remote`")
+        }
+
+        let word = input == "local" ? "ahead" : "behind"
+
+        if !_isGitRepository { return 0 }
+
+        let result = shellRunner.execute(
+            "cd \(path) && git for-each-ref --format=\"%(push:track)\" refs/heads")
+
+        if result.exitCode != 0 {
+            throw RDError(result.stderr)
+        }
+
+        // Expected output:
+        //   [ahead 3, behind 2]
+        //
+        let numbersArray = try result.stdout.regex("\(word) [0-9]+")
+
+        if numbersArray.count < 1 {
+            return 0
+        }
+
+        let countCandidate = numbersArray[0].split(" ")[1]
+        if let count = Int(countCandidate) {
+            return count
+        }
+        throw RDError("Can't convert \(countCandidate) to string")
     }
 }
