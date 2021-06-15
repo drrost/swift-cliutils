@@ -87,6 +87,7 @@ private class GitUtilImpl: IGitUtil {
             return 0
         }
 
+
         let countCandidate = numbersArray[1]
         if let count = Int(countCandidate) {
             return count
