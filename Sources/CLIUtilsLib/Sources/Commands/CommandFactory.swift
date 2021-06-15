@@ -12,7 +12,9 @@ public let COMMAND_LIST = [
     "pwd" : CommandPwd.self,
     "help" : CommandHelp.self,
 
-    "rename" : CommandRenameFile.self
+    "rename" : CommandRenameFile.self,
+
+    "git_prompt": CommandGitPrompt.self
 ]
 
 open class CommandFactory {
@@ -37,8 +39,13 @@ open class CommandFactory {
             return CommandPwd(arguments)
         case "help":
             return CommandHelp(arguments, COMMAND_LIST.keys.sorted())
+
         case "rename":
             return CommandRenameFile(arguments)
+
+        case "git_prompt", "gp":
+            return CommandGitPrompt(arguments)
+
         default:
             return CommandUnknown(arguments)
         }
