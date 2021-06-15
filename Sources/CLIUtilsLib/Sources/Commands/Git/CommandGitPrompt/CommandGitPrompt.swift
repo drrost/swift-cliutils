@@ -22,15 +22,9 @@ class CommandGitPrompt: Command {
 
         let state = try gitUtil.getRepositoryState()
 
-        if state.isGitRepository {
-            System.out.println("Is in a git repository")
-            System.out.println("On branch: \(state.branch)")
-            System.out.println("Files changed: \(state.localFilesChanged)")
-            System.out.println("Local commits: \(state.localCommits)")
-            System.out.println("Remote commits: \(state.remoteCommits)")
-        } else {
-            System.err.println("Is NOT in a git repository")
-        }
+        let printer = GitStatusPrinter()
+        let statusString = printer.getStatusString(for: state)
+        System.out.println(statusString)
     }
 }
 
