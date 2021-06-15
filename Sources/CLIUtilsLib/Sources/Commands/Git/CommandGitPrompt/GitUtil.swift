@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RDError
 
 class GitUtil {
 
@@ -35,8 +36,9 @@ private class GitUtilImpl: IGitUtil {
     }
 
     func isGitRepository() throws -> Bool {
-        let result = shellRunner.execute("git rev-parse --is-inside-work-tree")
-        _isGitRepository = result.exitCode == 0
+        let result = shellRunner.execute(
+            "cd \(path) && git rev-parse --is-inside-work-tree")
+        _isGitRepository = result.stdout.trimN() == "true"
         return _isGitRepository
     }
 
@@ -53,5 +55,18 @@ private class GitUtilImpl: IGitUtil {
     func remoteCommits() throws -> Int {
         if !_isGitRepository { return 0 }
         return 0
+    }
+
+    func branchName() throws -> String {
+
+        guard _isGitRepository else { return "" }
+
+        let result = shellRunner.execute(
+            "cd \(path) && git branch --show-current")
+
+        if result.exitCode != 0 {
+            throw RDError(result.stderr)
+        }
+        return result.stdout.trim()
     }
 }

@@ -24,6 +24,7 @@ class CommandGitPrompt: Command {
 
         if state.isGitRepository {
             System.out.println("Is in a git repository")
+            System.out.println("On branch: \(state.branch)")
         } else {
             System.err.println("Is NOT in a git repository")
         }

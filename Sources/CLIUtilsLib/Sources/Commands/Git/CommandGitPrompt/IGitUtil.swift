@@ -16,6 +16,7 @@ protocol IGitUtil {
     func localFilesChanged() throws -> Int
     func localCommits() throws -> Int
     func remoteCommits() throws -> Int
+    func branchName() throws -> String
 
     func getRepositoryState() throws -> GitRepositoryState
 }
@@ -28,8 +29,9 @@ extension IGitUtil {
         let changes = try localFilesChanged()
         let localCommits = try localCommits()
         let remoteCommits = try remoteCommits()
+        let branch = try branchName()
 
         return GitRepositoryState(
-            isRepository, changes, localCommits, remoteCommits)
+            isRepository, changes, localCommits, remoteCommits, branch)
     }
 }

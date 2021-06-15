@@ -61,6 +61,10 @@ class GitUtilMock: IGitUtil {
     func remoteCommits() throws -> Int {
         _remoteCommits
     }
+
+    func branchName() throws -> String {
+        ""
+    }
 }
 
 class ShellRunnerMock: IShellRunner {
