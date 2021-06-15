@@ -70,7 +70,29 @@ private class GitUtilImpl: IGitUtil {
 
     func remoteCommits() throws -> Int {
         if !_isGitRepository { return 0 }
-        return 0
+
+        let result = shellRunner.execute(
+            "cd \(path) && git for-each-ref --format=\"%(push:track)\" refs/heads")
+
+        if result.exitCode != 0 {
+            throw RDError(result.stderr)
+        }
+
+        // Expected output:
+        //   [ahead 3, behind 2]
+        //
+        let numbersArray = try result.stdout.regex("[0-9]+")
+
+        if numbersArray.count < 2 {
+            throw RDError(
+                "Can't parse remote commits from: \"\(result.output())\"")
+        }
+
+        let countCandidate = numbersArray[1]
+        if let count = Int(countCandidate) {
+            return count
+        }
+        throw RDError("Can't convert \(countCandidate) to string")
     }
 
     func branchName() throws -> String {
