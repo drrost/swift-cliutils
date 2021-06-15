@@ -84,8 +84,7 @@ private class GitUtilImpl: IGitUtil {
         let numbersArray = try result.stdout.regex("[0-9]+")
 
         if numbersArray.count < 2 {
-            throw RDError(
-                "Can't parse remote commits from: \"\(result.output())\"")
+            return 0
         }
 
         let countCandidate = numbersArray[1]
