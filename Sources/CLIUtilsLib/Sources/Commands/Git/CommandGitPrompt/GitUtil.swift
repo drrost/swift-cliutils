@@ -44,7 +44,15 @@ private class GitUtilImpl: IGitUtil {
 
     func localFilesChanged() throws -> Int {
         if !_isGitRepository { return 0 }
-        return 0
+        let result = shellRunner.execute("cd \(path) && git status --porcelain")
+
+        if result.exitCode != 0 {
+            throw RDError(result.stderr)
+        }
+
+        let count = result.stdout.split("\n").count
+
+        return count
     }
 
     func localCommits() throws -> Int {
@@ -67,6 +75,6 @@ private class GitUtilImpl: IGitUtil {
         if result.exitCode != 0 {
             throw RDError(result.stderr)
         }
-        return result.stdout.trim()
+        return result.stdout.trimN()
     }
 }

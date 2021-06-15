@@ -10,19 +10,19 @@ import Foundation
 class GitRepositoryState {
 
     let isGitRepository: Bool
-    let localChanges: Int
+    let localFilesChanged: Int
     let localCommits: Int
     let remoteCommits: Int
     let branch: String
 
     init(_ isGitRepository: Bool,
-         _ localChanges: Int,
+         _ localFilesChanged: Int,
          _ localCommits: Int,
          _ remoteCommits: Int,
          _ branch: String) {
 
         self.isGitRepository = isGitRepository
-        self.localChanges = localChanges
+        self.localFilesChanged = localFilesChanged
         self.localCommits = localCommits
         self.remoteCommits = remoteCommits
         self.branch = branch
