@@ -7,6 +7,7 @@
 
 import Foundation
 import CLIUtilsLib
+import RDError
 
 class Inner {
 
@@ -37,7 +38,7 @@ func handleInput(_ arguments: [String]) {
 
     let line = inArguments.joined(separator: " ")
     let command = CommandFactory.create(from: line)
-    command.exec()
+    execute(command)
 }
 
 if CommandLine.arguments.count > 1 {
@@ -56,5 +57,15 @@ while true {
     printPrompt()
     let line = Inner.getLine();
     let command = CommandFactory.create(from: line)
-    command.exec()
+    execute(command)
+}
+
+// Command executor
+
+func execute(_ command: Command) {
+    do {
+        try command.exec()
+    } catch {
+        System.err.println(error.localizedDescription)
+    }
 }

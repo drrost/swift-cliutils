@@ -36,7 +36,7 @@ open class Command {
 
     // MARK: - Public
 
-    open func exec() {}
+    open func exec() throws {}
 
     // MARK: - Internal
 

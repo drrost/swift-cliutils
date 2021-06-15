@@ -15,12 +15,12 @@ class CommandGitPrompt: Command {
 
     // MARK: - Command
 
-    open override func exec() {
+    open override func exec() throws {
 
         let path = CommandPwd().pwd()
         gitUtil = GitUtil.default(path, shellRunner)
 
-        let state = try! gitUtil.getRepositoryState()
+        let state = try gitUtil.getRepositoryState()
 
         if state.isGitRepository {
             System.out.println("Is in a git repository")
