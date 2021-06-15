@@ -81,14 +81,14 @@ private class GitUtilImpl: IGitUtil {
         // Expected output:
         //   [ahead 3, behind 2]
         //
-        let numbersArray = try result.stdout.regex("[0-9]+")
+        let numbersArray = try result.stdout.regex("behind [0-9]+")
 
-        if numbersArray.count < 2 {
+        if numbersArray.count < 1 {
             return 0
         }
 
 
-        let countCandidate = numbersArray[1]
+        let countCandidate = numbersArray[0]
         if let count = Int(countCandidate) {
             return count
         }
