@@ -33,8 +33,8 @@ class GitStatusPrinter {
         }
 
         result = addColor(state, result)
-        
-        return result
+
+        return " " + result
     }
 
     private func addColor(
