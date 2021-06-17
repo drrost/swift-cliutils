@@ -20,15 +20,11 @@ class CommandGitPrompt: Command {
         let path = CommandPwd().pwd()
         gitUtil = GitUtil.default(path, shellRunner)
 
-        do {
-            let state = try gitUtil.getRepositoryState()
+        let state = try gitUtil.getRepositoryState()
 
-            let printer = GitStatusPrinter()
-            let statusString = printer.getStatusString(for: state)
-            System.out.println(statusString)
-        } catch {
-            System.out.print("")
-        }
+        let printer = GitStatusPrinter()
+        let statusString = printer.getStatusString(for: state)
+        System.out.println(statusString)
     }
 }
 

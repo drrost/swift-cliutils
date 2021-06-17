@@ -26,6 +26,10 @@ extension IGitUtil {
     func getRepositoryState() throws -> GitRepositoryState {
 
         let isRepository = try isGitRepository()
+        if !isRepository {
+            return GitRepositoryState(isRepository, 0, 0, 0, "")
+        }
+
         let changes = try localFilesChanged()
         let branch = try branchName()
         let localCommits = try localCommits(branch)
