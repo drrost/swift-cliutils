@@ -32,6 +32,33 @@ class GitStatusPrinter {
             result += " (\(state.localFilesChanged))"
         }
 
+        result = addColor(state, result)
+        
         return result
     }
+
+    private func addColor(
+        _ state: GitRepositoryState, _ candidate: String) -> String {
+
+        var color: String = .GREEN
+        if state.localFilesChanged > 0 {
+            color = .RED
+        } else if state.localCommits > 0 {
+            color = .YELLOW
+        } else if state.remoteCommits > 0 {
+            color = .MAGENTA
+        }
+
+        return color + candidate + .NC
+    }
+}
+
+fileprivate extension String {
+
+    static let RED: String = "\\e[0;31m"
+    static let GREEN: String = "\\e[0;32m"
+    static let YELLOW: String = "\\e[0;33m"
+    static let MAGENTA: String = "\\e[0;35m"
+
+    static let NC: String = "\\e[0m"
 }
