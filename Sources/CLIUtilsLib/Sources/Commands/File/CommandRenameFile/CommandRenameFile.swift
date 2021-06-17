@@ -26,7 +26,7 @@ public class CommandRenameFile: Command {
         let path = CommandPwd().pwd()
 
         let file = File(path)
-        var list = try! file.listFilesR {
+        let list = try! file.listFilesR {
             $0.lastPathComponent.matches("Mock")
         }.sorted {
             $1.isDirectory()

@@ -55,12 +55,28 @@ class GitUtilImpl: IGitUtil {
         return count
     }
 
-    func localCommits() throws -> Int {
-        try getCommits("local")
+    func localCommits(_ branch: String) throws -> Int {
+        let script =
+            "cd \(path) && git rev-list origin/\(branch)..\(branch) --count"
+        let reuslt = shellRunner.execute(script)
+        try reuslt.throwIfError()
+
+        if let count = Int(reuslt.stdout.trimN()) {
+            return count
+        }
+        throw RDError("Can't parse \"\(reuslt.stdout)\" to Int")
     }
 
-    func remoteCommits() throws -> Int {
-        try getCommits("remote")
+    func remoteCommits(_ branch: String) throws -> Int {
+        let script =
+            "cd \(path) && git rev-list \(branch)..origin/\(branch) --count"
+        let reuslt = shellRunner.execute(script)
+        try reuslt.throwIfError()
+
+        if let count = Int(reuslt.stdout.trimN()) {
+            return count
+        }
+        throw RDError("Can't parse \"\(reuslt.stdout)\" to Int")
     }
 
     func branchName() throws -> String {
@@ -75,39 +91,13 @@ class GitUtilImpl: IGitUtil {
         }
         return result.stdout.trimN()
     }
+}
 
-    // MARK: - Private
+extension ShellResult {
 
-    private func getCommits(_ input: String) throws -> Int {
-
-        if input != "local" && input != "remote" {
-            throw RDError("`input` must be either `local` or `remote`")
+    func throwIfError() throws {
+        if exitCode != 0 {
+            throw RDError(stderr)
         }
-
-        let word = input == "local" ? "ahead" : "behind"
-
-        if !_isGitRepository { return 0 }
-
-        let result = shellRunner.execute(
-            "cd \(path) && git for-each-ref --format=\"%(push:track)\" refs/heads")
-
-        if result.exitCode != 0 {
-            throw RDError(result.stderr)
-        }
-
-        // Expected output:
-        //   [ahead 3, behind 2]
-        //
-        let numbersArray = try result.stdout.regex("\(word) [0-9]+")
-
-        if numbersArray.count < 1 {
-            return 0
-        }
-
-        let countCandidate = numbersArray[0].split(" ")[1]
-        if let count = Int(countCandidate) {
-            return count
-        }
-        throw RDError("Can't convert \(countCandidate) to string")
     }
 }

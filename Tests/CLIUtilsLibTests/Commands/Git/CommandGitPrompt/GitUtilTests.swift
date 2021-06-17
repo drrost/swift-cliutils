@@ -28,10 +28,10 @@ class GitUtilTests: XCTestCase {
 
     func testBehind2_remoteCommits2() {
         // Given
-        shellRunnerMock.stdout = "[ahead 3, behind 2]"
+        shellRunnerMock.stdout = "2\n"
 
         // When
-        let remote = try! sut.remoteCommits()
+        let remote = try! sut.remoteCommits("DDD")
 
         // Then
         XCTAssertEqual(2, remote)
@@ -42,7 +42,7 @@ class GitUtilTests: XCTestCase {
         shellRunnerMock.stdout = "[ahead 3, behind 2]"
 
         // When
-        let local = try! sut.localCommits()
+        let local = try! sut.localCommits("AAAD")
 
         // Then
         XCTAssertEqual(3, local)

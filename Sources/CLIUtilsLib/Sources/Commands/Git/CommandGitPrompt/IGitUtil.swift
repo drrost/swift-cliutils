@@ -14,8 +14,8 @@ protocol IGitUtil {
     func isGitRepository() throws -> Bool
 
     func localFilesChanged() throws -> Int
-    func localCommits() throws -> Int
-    func remoteCommits() throws -> Int
+    func localCommits(_ branch: String) throws -> Int
+    func remoteCommits(_ branch: String) throws -> Int
     func branchName() throws -> String
 
     func getRepositoryState() throws -> GitRepositoryState
@@ -27,9 +27,9 @@ extension IGitUtil {
 
         let isRepository = try isGitRepository()
         let changes = try localFilesChanged()
-        let localCommits = try localCommits()
-        let remoteCommits = try remoteCommits()
         let branch = try branchName()
+        let localCommits = try localCommits(branch)
+        let remoteCommits = try remoteCommits(branch)
 
         return GitRepositoryState(
             isRepository, changes, localCommits, remoteCommits, branch)

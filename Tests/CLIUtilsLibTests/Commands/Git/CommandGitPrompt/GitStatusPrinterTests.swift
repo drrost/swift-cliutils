@@ -44,5 +44,37 @@ class GitStatusPrinterTests: XCTestCase {
         // Then
         XCTAssertEqual("(master) (5)", result)
     }
-}
 
+    func test1530M() {
+        // Given
+        let state = GitRepositoryState(true, 5, 3, 0, "master")
+
+        // When
+        let result = sut.getStatusString(for: state)
+
+        // Then
+        XCTAssertEqual("(master) ▲3 (5)", result)
+    }
+
+    func test1504M() {
+        // Given
+        let state = GitRepositoryState(true, 5, 0, 4, "master")
+
+        // When
+        let result = sut.getStatusString(for: state)
+
+        // Then
+        XCTAssertEqual("(master) ▼4 (5)", result)
+    }
+
+    func test1534M() {
+        // Given
+        let state = GitRepositoryState(true, 5, 3, 4, "master")
+
+        // When
+        let result = sut.getStatusString(for: state)
+
+        // Then
+        XCTAssertEqual("(master) ▼4|▲3 (5)", result)
+    }
+}

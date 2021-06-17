@@ -15,6 +15,19 @@ class GitStatusPrinter {
 
         var result = "(\(state.branch))"
 
+        if state.remoteCommits > 0 {
+            result += " ▼\(state.remoteCommits)"
+        }
+
+        if state.localCommits > 0 {
+            if state.remoteCommits > 0 {
+                result += "|"
+            } else {
+                result += " "
+            }
+            result += "▲\(state.localCommits)"
+        }
+
         if state.localFilesChanged > 0 {
             result += " (\(state.localFilesChanged))"
         }
