@@ -91,6 +91,14 @@ class GitUtilImpl: IGitUtil {
         }
         return result.stdout.trimN()
     }
+
+    func branchHasRemote(_ name: String) throws -> Bool {
+
+        let result = shellRunner.execute(
+            "cd \(path) && git show-branch remotes/origin/\(name)")
+
+        return result.exitCode == 0
+    }
 }
 
 extension ShellResult {

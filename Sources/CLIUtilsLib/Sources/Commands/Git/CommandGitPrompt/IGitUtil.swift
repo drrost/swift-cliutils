@@ -19,6 +19,8 @@ protocol IGitUtil {
     func branchName() throws -> String
 
     func getRepositoryState() throws -> GitRepositoryState
+
+    func branchHasRemote(_ name: String) throws -> Bool
 }
 
 extension IGitUtil {
@@ -32,8 +34,11 @@ extension IGitUtil {
 
         let changes = try localFilesChanged()
         let branch = try branchName()
-        let localCommits = try localCommits(branch)
-        let remoteCommits = try remoteCommits(branch)
+
+        let branchHasRemote = try branchHasRemote(branch)
+
+        let localCommits = branchHasRemote ? try localCommits(branch) : 0
+        let remoteCommits = branchHasRemote ? try remoteCommits(branch) : 0
 
         return GitRepositoryState(
             isRepository, changes, localCommits, remoteCommits, branch)
