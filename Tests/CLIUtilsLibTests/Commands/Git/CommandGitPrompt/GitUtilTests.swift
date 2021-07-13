@@ -39,7 +39,7 @@ class GitUtilTests: XCTestCase {
 
     func testAhead3_localCommits3() {
         // Given
-        shellRunnerMock.stdout = "[ahead 3, behind 2]"
+        shellRunnerMock.stdout = "3\n"
 
         // When
         let local = try! sut.localCommits("AAAD")

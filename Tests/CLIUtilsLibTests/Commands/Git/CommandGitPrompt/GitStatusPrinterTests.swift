@@ -31,7 +31,7 @@ class GitStatusPrinterTests: XCTestCase {
         let result = sut.getStatusString(for: state)
 
         // Then
-        XCTAssertEqual("(master)", result)
+        XCTAssertEqual(" \\e[0;32m(master)\\e[0m", result)
     }
 
     func test1500M() {
@@ -42,7 +42,7 @@ class GitStatusPrinterTests: XCTestCase {
         let result = sut.getStatusString(for: state)
 
         // Then
-        XCTAssertEqual("(master) (5)", result)
+        XCTAssertEqual(" \\e[0;31m(master) (5)\\e[0m", result)
     }
 
     func test1530M() {
@@ -53,7 +53,7 @@ class GitStatusPrinterTests: XCTestCase {
         let result = sut.getStatusString(for: state)
 
         // Then
-        XCTAssertEqual("(master) ▲3 (5)", result)
+        XCTAssertEqual(" \\e[0;31m(master) ▲3 (5)\\e[0m", result)
     }
 
     func test1504M() {
@@ -64,7 +64,7 @@ class GitStatusPrinterTests: XCTestCase {
         let result = sut.getStatusString(for: state)
 
         // Then
-        XCTAssertEqual("(master) ▼4 (5)", result)
+        XCTAssertEqual(" \\e[0;31m(master) ▼4 (5)\\e[0m", result)
     }
 
     func test1534M() {
@@ -75,6 +75,6 @@ class GitStatusPrinterTests: XCTestCase {
         let result = sut.getStatusString(for: state)
 
         // Then
-        XCTAssertEqual("(master) ▼4|▲3 (5)", result)
+        XCTAssertEqual(" \\e[0;31m(master) ▼4|▲3 (5)\\e[0m", result)
     }
 }
