@@ -18,7 +18,7 @@ public class CommandGitLocalBranches: Command {
 
         let branches = try gitUtil.localBranches()
 
-        let printer = GitBranchesPrinter()
+        let printer = GitBranchesFormatter()
         let branchesString = printer.getBranchesString(branches)
         System.out.println(branchesString)
     }

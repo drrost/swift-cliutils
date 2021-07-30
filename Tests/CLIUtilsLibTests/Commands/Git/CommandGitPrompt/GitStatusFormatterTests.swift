@@ -1,5 +1,5 @@
 //
-//  GitStatusPrinterTests.swift
+//  GitStatusFormatterTests.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 15.06.2021.
@@ -9,16 +9,16 @@ import XCTest
 
 @testable import CLIUtilsLib
 
-class GitStatusPrinterTests: XCTestCase {
+class GitStatusFormatterTests: XCTestCase {
 
     // MARK: - Variables
 
-    var sut: GitStatusPrinter!
+    var sut: GitStatusFormatter!
 
     // MARK: - Tests routines
 
     override func setUp() {
-        sut = GitStatusPrinter()
+        sut = GitStatusFormatter()
     }
 
     // MARK: - Init tests

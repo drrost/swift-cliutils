@@ -1,5 +1,5 @@
 //
-//  GitBranchesPrinter.swift
+//  GitBranchesFormatter.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 30.07.2021.
@@ -24,7 +24,7 @@ fileprivate extension String {
     static let NC: String = "\u{001B}[0m"
 }
 
-class GitBranchesPrinter: ShellPrinter {
+class GitBranchesFormatter: ShellPrinter {
 
     func getBranchesString(_ branches: [Branch]) -> String {
 

@@ -22,7 +22,7 @@ class CommandGitPrompt: Command {
 
         let state = try gitUtil.getRepositoryState()
 
-        let printer = GitStatusPrinter()
+        let printer = GitStatusFormatter()
         let statusString = printer.getStatusString(for: state)
         System.out.println(statusString)
     }

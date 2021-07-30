@@ -1,5 +1,5 @@
 //
-//  GitStatusPrinter.swift
+//  GitStatusFormatter.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 15.06.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GitStatusPrinter {
+class GitStatusFormatter {
 
     func getStatusString(for repositoryState: GitRepositoryState) -> String {
 
