@@ -13,7 +13,7 @@ extension GitUtilImpl {
     func localBranches() throws -> [Branch] {
 
         guard let isrepo = try? isGitRepository(), isrepo else {
-            throw RDError("There is no repository in the current folder")
+            throw RDError("There is no a repository in the current folder")
         }
 
         let result = shellRunner.execute("cd \(path) && git branch")
