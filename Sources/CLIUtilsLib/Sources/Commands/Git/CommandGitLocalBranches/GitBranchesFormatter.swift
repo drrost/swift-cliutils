@@ -26,12 +26,13 @@ fileprivate extension String {
 
 class GitBranchesFormatter: ShellPrinter {
 
-    func getBranchesString(_ branches: [Branch]) -> String {
+    func getBranchesString(_ branchInfos: [BranchInfo]) -> String {
 
         var result = ""
-        for (i, branch) in branches.enumerated() {
-            var line = "[\(i + 1)]: " + branch.name
-            if branch.isCurrent {
+        for (i, info) in branchInfos.enumerated() {
+            let stateString = info.state.toString()
+            var line = "[\(i + 1)]: " + info.branch.name + " " + stateString
+            if info.branch.isCurrent {
                 line = addColor(line, .GREEN)
             }
             line += " \n"

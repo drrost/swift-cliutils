@@ -14,24 +14,8 @@ class GitStatusFormatter {
         if !repositoryState.isValidGitRepository { return "" }
 
         var result = "(\(repositoryState.branchInfo.branch.name))"
-
         let state = repositoryState.branchInfo.state
-        if state.remoteCommits > 0 {
-            result += " ▼\(state.remoteCommits)"
-        }
-
-        if state.localCommits > 0 {
-            if state.remoteCommits > 0 {
-                result += "|"
-            } else {
-                result += " "
-            }
-            result += "▲\(state.localCommits)"
-        }
-
-        if state.localFilesChanged > 0 {
-            result += " (\(state.localFilesChanged))"
-        }
+        result += state.toString()
 
         result = addColor(state, result)
 
@@ -61,4 +45,30 @@ fileprivate extension String {
     static let MAGENTA: String = "\\e[0;35m"
 
     static let NC: String = "\\e[0m"
+}
+
+extension BranchState {
+
+    func toString() -> String {
+
+        var result = ""
+        if remoteCommits > 0 {
+            result += " ▼\(remoteCommits)"
+        }
+
+        if localCommits > 0 {
+            if remoteCommits > 0 {
+                result += "|"
+            } else {
+                result += " "
+            }
+            result += "▲\(localCommits)"
+        }
+
+        if localFilesChanged > 0 {
+            result += " (\(localFilesChanged))"
+        }
+
+        return result
+    }
 }
