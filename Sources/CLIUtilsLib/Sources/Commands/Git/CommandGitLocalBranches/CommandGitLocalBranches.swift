@@ -28,21 +28,15 @@ public class CommandGitLocalBranches: Command {
 
     private func getInfos(_ branches: [Branch]) throws -> [BranchInfo] {
 
-        var infos: [BranchInfo] = []
+        try branches.map { branch in
 
-        for branch in branches {
-            var localChanges = 0
-            if branch.isCurrent {
-                localChanges = try gitUtil.localFilesChanged()
-            }
+            let localChanges =
+                branch.isCurrent ? try gitUtil.localFilesChanged() : 0
             let localCommits = try gitUtil.localCommits(branch.name)
             let remoteCommits = try gitUtil.remoteCommits(branch.name)
 
             let state = BranchState(localChanges, localCommits, remoteCommits)
-            let info = BranchInfo(branch, state)
-            infos.append(info)
+            return BranchInfo(branch, state)
         }
-
-        return infos
     }
 }

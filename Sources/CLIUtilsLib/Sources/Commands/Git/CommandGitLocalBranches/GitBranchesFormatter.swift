@@ -28,17 +28,15 @@ class GitBranchesFormatter: ShellPrinter {
 
     func getBranchesString(_ branchInfos: [BranchInfo]) -> String {
 
-        var result = ""
-        for (i, info) in branchInfos.enumerated() {
-            let stateString = info.state.toString()
-            var line = "[\(i + 1)]: " + info.branch.name + " " + stateString
-            if info.branch.isCurrent {
+        branchInfos.enumerated().reduce("") { result, pair in
+
+            let stateString = pair.1.state.toString()
+            var line = "[\(pair.0 + 1)]: " + pair.1.branch.name + " " + stateString
+            if pair.1.branch.isCurrent {
                 line = addColor(line, .GREEN)
             }
             line += " \n"
-            result += line
+            return result + line
         }
-
-        return result
     }
 }
