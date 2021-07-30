@@ -7,14 +7,11 @@
 
 import Foundation
 
-public class CommandGitLocalBranches: Command {
-
-    var gitUtil: IGitUtil!
+public class CommandGitLocalBranches: CommandGit {
 
     open override func exec() throws {
 
-        let path = CommandPwd().pwd()
-        gitUtil = GitUtil.default(path, shellRunner)
+        try super.exec()
 
         let branches = try gitUtil.localBranches()
         let infos = try getInfos(branches)

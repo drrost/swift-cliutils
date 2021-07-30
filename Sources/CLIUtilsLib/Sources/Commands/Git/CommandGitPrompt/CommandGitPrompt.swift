@@ -7,18 +7,13 @@
 
 import Foundation
 
-class CommandGitPrompt: Command {
-
-    // MARK: - Properties
-
-    var gitUtil: IGitUtil!
+class CommandGitPrompt: CommandGit {
 
     // MARK: - Command
 
     open override func exec() throws {
 
-        let path = CommandPwd().pwd()
-        gitUtil = GitUtil.default(path, shellRunner)
+        try super.exec()
 
         let state = try gitUtil.getRepositoryState()
 

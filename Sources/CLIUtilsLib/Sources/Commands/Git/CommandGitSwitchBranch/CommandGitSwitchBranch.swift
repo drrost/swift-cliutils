@@ -8,16 +8,12 @@
 import Foundation
 import RDError
 
-public class CommandGitSwitchBranch: Command {
-
-    var gitUtil: IGitUtil!
+public class CommandGitSwitchBranch: CommandGit {
 
     open override func exec() throws {
 
-       try validateInput()
-
-        let path = CommandPwd().pwd()
-        gitUtil = GitUtil.default(path, shellRunner)
+        try validateInput()
+        try super.exec()
 
         let branches = try gitUtil.localBranches()
         let number = Int(arguments.operands[0])! - 1
