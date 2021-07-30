@@ -9,12 +9,13 @@ import Foundation
 
 class GitStatusPrinter {
 
-    func getStatusString(for state: GitRepositoryState) -> String {
+    func getStatusString(for repositoryState: GitRepositoryState) -> String {
 
-        if !state.isGitRepository { return "" }
+        if !repositoryState.isValidGitRepository { return "" }
 
-        var result = "(\(state.branch))"
+        var result = "(\(repositoryState.branchInfo.branch.name))"
 
+        let state = repositoryState.branchInfo.state
         if state.remoteCommits > 0 {
             result += " ▼\(state.remoteCommits)"
         }
@@ -37,8 +38,7 @@ class GitStatusPrinter {
         return " " + result
     }
 
-    private func addColor(
-        _ state: GitRepositoryState, _ candidate: String) -> String {
+    private func addColor(_ state: BranchState, _ candidate: String) -> String {
 
         var color: String = .GREEN
         if state.localFilesChanged > 0 {

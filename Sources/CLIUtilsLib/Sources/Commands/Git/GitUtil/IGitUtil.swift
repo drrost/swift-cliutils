@@ -11,7 +11,7 @@ protocol IGitUtil {
 
     init(_ path: String, _ shellRunner: IShellRunner)
 
-    func isGitRepository() throws -> Bool
+    func isValidGitRepository() throws -> Bool
 
     func localFilesChanged() throws -> Int
     func localCommits(_ branch: String) throws -> Int
@@ -30,20 +30,32 @@ extension IGitUtil {
 
     func getRepositoryState() throws -> GitRepositoryState {
 
-        let isRepository = try isGitRepository()
+        let isRepository = try isValidGitRepository()
         if !isRepository {
-            return GitRepositoryState(isRepository, 0, 0, 0, "")
+            return GitRepositoryState(isRepository, BranchInfo.empty())
         }
 
         let changes = try localFilesChanged()
-        let branch = try branchName()
+        let name = try branchName()
 
-        let branchHasRemote = try branchHasRemote(branch)
+        let branchHasRemote = try branchHasRemote(name)
 
-        let localCommits = branchHasRemote ? try localCommits(branch) : 0
-        let remoteCommits = branchHasRemote ? try remoteCommits(branch) : 0
+        let localCommits = branchHasRemote ? try localCommits(name) : 0
+        let remoteCommits = branchHasRemote ? try remoteCommits(name) : 0
 
-        return GitRepositoryState(
-            isRepository, changes, localCommits, remoteCommits, branch)
+        let branch = Branch(name)
+        let state = BranchState(changes, localCommits, remoteCommits)
+        let branchInfo = BranchInfo(branch, state)
+
+        return GitRepositoryState(isRepository, branchInfo)
+    }
+}
+
+fileprivate extension BranchInfo {
+
+    static func empty() -> BranchInfo {
+        let branch = Branch("")
+        let state = BranchState(0, 0, 0)
+        return BranchInfo(branch, state)
     }
 }

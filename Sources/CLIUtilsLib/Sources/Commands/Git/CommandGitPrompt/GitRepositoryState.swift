@@ -9,22 +9,27 @@ import Foundation
 
 class GitRepositoryState {
 
-    let isGitRepository: Bool
-    let localFilesChanged: Int
-    let localCommits: Int
-    let remoteCommits: Int
-    let branch: String
+    let isValidGitRepository: Bool
+    let branchInfo: BranchInfo
 
-    init(_ isGitRepository: Bool,
-         _ localFilesChanged: Int,
-         _ localCommits: Int,
-         _ remoteCommits: Int,
-         _ branch: String) {
+    init(_ isValidGitRepository: Bool,
+         _ branchInfo: BranchInfo) {
 
-        self.isGitRepository = isGitRepository
-        self.localFilesChanged = localFilesChanged
-        self.localCommits = localCommits
-        self.remoteCommits = remoteCommits
-        self.branch = branch
+        self.isValidGitRepository = isValidGitRepository
+        self.branchInfo = branchInfo
+    }
+
+    convenience init(
+        _ isValidGitRepository: Bool,
+        _ localFilesChanged: Int,
+        _ localCommits: Int,
+        _ remoteCommits: Int,
+        _ name: String) {
+
+        let branch = Branch(name)
+        let state = BranchState(localFilesChanged, localCommits, remoteCommits)
+        let info = BranchInfo(branch, state)
+
+        self.init(isValidGitRepository, info)
     }
 }

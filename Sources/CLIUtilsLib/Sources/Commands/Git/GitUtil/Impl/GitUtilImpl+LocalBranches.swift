@@ -12,7 +12,7 @@ extension GitUtilImpl {
 
     func localBranches() throws -> [Branch] {
 
-        guard let isrepo = try? isGitRepository(), isrepo else {
+        guard let isrepo = try? isValidGitRepository(), isrepo else {
             throw RDError("There is no a repository in the current folder")
         }
 

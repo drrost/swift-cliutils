@@ -21,7 +21,7 @@ class GitUtilTests: XCTestCase {
     override func setUp() {
         shellRunnerMock = ShellRunnerMock()
         sut = GitUtil.default("", shellRunnerMock) as? GitUtilImpl
-        sut._isGitRepository = true
+        sut._isValidGitRepository = true
     }
 
     // MARK: - Init tests

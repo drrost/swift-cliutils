@@ -13,22 +13,22 @@ class GitUtilImpl: IGitUtil {
     let path: String
     let shellRunner: IShellRunner
 
-    var _isGitRepository: Bool = false
+    var _isValidGitRepository: Bool = false
 
     required init(_ path: String, _ shellRunner: IShellRunner) {
         self.path = path
         self.shellRunner = shellRunner
     }
 
-    func isGitRepository() throws -> Bool {
+    func isValidGitRepository() throws -> Bool {
         let result = shellRunner.execute(
             "cd \(path) && git rev-parse --is-inside-work-tree")
-        _isGitRepository = result.stdout.trimN() == "true"
-        return _isGitRepository
+        _isValidGitRepository = result.stdout.trimN() == "true"
+        return _isValidGitRepository
     }
 
     func localFilesChanged() throws -> Int {
-        if !_isGitRepository { return 0 }
+        if !_isValidGitRepository { return 0 }
         let result = shellRunner.execute("cd \(path) && git status --porcelain")
 
         if result.exitCode != 0 {
@@ -66,7 +66,7 @@ class GitUtilImpl: IGitUtil {
 
     func branchName() throws -> String {
 
-        guard _isGitRepository else { return "" }
+        guard _isValidGitRepository else { return "" }
 
         let result = shellRunner.execute(
             "cd \(path) && git branch --show-current")
