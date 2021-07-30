@@ -84,6 +84,12 @@ class GitUtilImpl: IGitUtil {
 
         return result.exitCode == 0
     }
+
+    func switchTo(_ branch: Branch) throws {
+
+        let result = shellRunner.execute("cd \(path) && git checkout \(branch.name)")
+        try result.throwIfError()
+    }
 }
 
 extension ShellResult {

@@ -23,6 +23,7 @@ protocol IGitUtil {
     func branchHasRemote(_ name: String) throws -> Bool
 
     func localBranches() throws -> [Branch]
+    func switchTo(_ branch: Branch) throws
 }
 
 extension IGitUtil {

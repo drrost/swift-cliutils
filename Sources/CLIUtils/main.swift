@@ -66,6 +66,7 @@ func execute(_ command: Command) {
     do {
         try command.exec()
     } catch {
+        command.printUsage()
         System.err.println(error.localizedDescription)
     }
 }

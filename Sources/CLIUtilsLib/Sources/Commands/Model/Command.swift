@@ -17,7 +17,7 @@ open class Command {
     public var options: [CommandOption] { arguments.options }
     public var shellRunner: IShellRunner
 
-    private let arguments: CommandArguments
+    let arguments: CommandArguments
 
     // MARK: - Init
 
@@ -44,7 +44,7 @@ open class Command {
         System.err.println("\(name): illegal option -- \(option)")
     }
 
-    func printUsage() {
+    open func printUsage() {
         System.err.println("usage: \(name) [-...] [...]")
     }
 }

@@ -35,7 +35,7 @@ public class CommandRenameFile: Command {
         }
     }
 
-    override func printUsage() {
+    public override func printUsage() {
         System.err.println("usage: \(name) [-R] [path]")
     }
 

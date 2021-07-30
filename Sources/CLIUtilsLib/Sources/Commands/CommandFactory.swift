@@ -15,7 +15,8 @@ public let COMMAND_LIST = [
     "rename" : CommandRenameFile.self,
 
     "git_prompt": CommandGitPrompt.self,
-    "glb": CommandGitLocalBranches.self
+    "glb": CommandGitLocalBranches.self,
+    "gsb": CommandGitSwitchBranch.self
 ]
 
 open class CommandFactory {
@@ -48,6 +49,8 @@ open class CommandFactory {
             return CommandGitPrompt(arguments)
         case "glb":
             return CommandGitLocalBranches(arguments)
+        case "gsb":
+            return CommandGitSwitchBranch(arguments)
 
         default:
             return CommandUnknown(arguments)
