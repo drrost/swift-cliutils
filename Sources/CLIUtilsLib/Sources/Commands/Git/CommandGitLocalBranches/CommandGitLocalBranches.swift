@@ -18,6 +18,7 @@ public class CommandGitLocalBranches: CommandGit {
 
         let printer = GitBranchesFormatter()
         let branchesString = printer.getBranchesString(infos)
+
         System.out.println(branchesString)
     }
 
