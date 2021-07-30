@@ -23,16 +23,3 @@ public class CommandGitLocalBranches: Command {
         System.out.println(branchesString)
     }
 }
-
-class GitBranchesPrinter {
-
-    func getBranchesString(_ branches: [Branch]) -> String {
-
-        var result = ""
-        for (i, branch) in branches.enumerated() {
-            result += "[\(i + 1)]: " + branch.name + "\n"
-        }
-
-        return result
-    }
-}
