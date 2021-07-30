@@ -1,32 +1,17 @@
 //
-//  GitUtil.swift
+//  GitUtilImpl.swift
 //
 //
-//  Created by Rostyslav Druzhchenko on 15.06.2021.
+//  Created by Rostyslav Druzhchenko on 30.07.2021.
 //
 
 import Foundation
 import RDError
 
-class GitUtil {
-
-    // MARK: - Private
-
-    private init() {}
-
-    // MARK: - Public
-
-    static func `default`(
-        _ path: String, _ shellRunner: IShellRunner) -> IGitUtil {
-
-        GitUtilImpl(path, shellRunner)
-    }
-}
-
 class GitUtilImpl: IGitUtil {
 
-    private let path: String
-    private let shellRunner: IShellRunner
+    let path: String
+    let shellRunner: IShellRunner
 
     var _isGitRepository: Bool = false
 
@@ -70,13 +55,13 @@ class GitUtilImpl: IGitUtil {
     func remoteCommits(_ branch: String) throws -> Int {
         let script =
             "cd \(path) && git rev-list \(branch)..origin/\(branch) --count"
-        let reuslt = shellRunner.execute(script)
-        try reuslt.throwIfError()
+        let result = shellRunner.execute(script)
+        try result.throwIfError()
 
-        if let count = Int(reuslt.stdout.trimN()) {
+        if let count = Int(result.stdout.trimN()) {
             return count
         }
-        throw RDError("Can't parse \"\(reuslt.stdout)\" to Int")
+        throw RDError("Can't parse \"\(result.stdout)\" to Int")
     }
 
     func branchName() throws -> String {

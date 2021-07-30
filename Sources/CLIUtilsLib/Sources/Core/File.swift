@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ExtensionsFoundation
+import RDFoundation
 
 public typealias Filter = ((String) -> Bool)
 

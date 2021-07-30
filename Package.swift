@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "ExtensionsFoundation",
+            name: "RDFoundation",
             url: "git@github.com:drrost/swift-extensions-foundation.git",
             from: "1.0.0"),
         .package(
@@ -31,12 +31,12 @@ let package = Package(
             dependencies: ["CLIUtilsLib"]),
         .target(
             name: "CLIUtilsLib",
-            dependencies: ["ExtensionsFoundation", "RDError"]),
+            dependencies: ["RDFoundation", "RDError"]),
         .testTarget(
             name: "CLIUtilsLibTests",
             dependencies: [
                 "CLIUtilsLib",
-                .product(name: "ExtensionXCTest", package: "ExtensionsFoundation")
+                .product(name: "RDTest", package: "RDFoundation")
             ]),
     ]
 )

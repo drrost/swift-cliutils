@@ -8,7 +8,7 @@
 import Foundation
 
 import RDError
-import ExtensionsFoundation
+import RDFoundation
 
 /**
  Renames file(s) and/or folder(s) recurcively.

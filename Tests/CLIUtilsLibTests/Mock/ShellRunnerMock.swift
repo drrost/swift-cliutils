@@ -9,13 +9,14 @@ import XCTest
 
 @testable import CLIUtilsLib
 
+
 class ShellRunnerMock: IShellRunner {
 
-    var stdout: String = ""
-    var stderr: String = ""
-    var exitCode: Int = 0
-
     func execute(_ line: String) -> ShellResult {
-        ShellResult(stdout, stderr, exitCode)
+        executeCounter += 1
+        return results[executeCounter - 1]
     }
+
+    var results = [ShellResult]()
+    var executeCounter = 0
 }

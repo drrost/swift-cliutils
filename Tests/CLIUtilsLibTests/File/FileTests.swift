@@ -7,7 +7,7 @@
 
 import XCTest
 
-import ExtensionXCTest
+import RDTest
 
 @testable import CLIUtilsLib
 

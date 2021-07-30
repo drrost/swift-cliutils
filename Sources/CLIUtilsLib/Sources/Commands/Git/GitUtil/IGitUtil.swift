@@ -21,6 +21,8 @@ protocol IGitUtil {
     func getRepositoryState() throws -> GitRepositoryState
 
     func branchHasRemote(_ name: String) throws -> Bool
+
+    func localBranches() throws -> [Branch]
 }
 
 extension IGitUtil {
