@@ -92,7 +92,7 @@ class GitUtilImpl: IGitUtil {
     }
 }
 
-extension ShellResult {
+public extension ShellResult {
 
     func throwIfError() throws {
         if exitCode != 0 {
