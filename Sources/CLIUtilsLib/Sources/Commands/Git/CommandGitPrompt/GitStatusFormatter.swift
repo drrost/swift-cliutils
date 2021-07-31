@@ -47,7 +47,7 @@ fileprivate extension String {
     static let NC: String = "\\e[0m"
 }
 
-extension BranchState {
+public extension BranchState {
 
     func toString() -> String {
 
