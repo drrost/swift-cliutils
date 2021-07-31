@@ -17,7 +17,7 @@ open class Command {
     public var options: [CommandOption] { arguments.options }
     public var shellRunner: IShellRunner
 
-    let arguments: CommandArguments
+    public let arguments: CommandArguments
 
     // MARK: - Init
 
