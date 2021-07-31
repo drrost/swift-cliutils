@@ -23,6 +23,20 @@ extension GitUtilImpl {
         return branches
     }
 
+    func getInfo(for branches: [Branch]) throws -> [BranchInfo] {
+
+        try branches.map { branch in
+
+            let localChanges =
+                branch.isCurrent ? try localFilesChanged() : 0
+            let localCommits = try localCommits(branch.name)
+            let remoteCommits = try remoteCommits(branch.name)
+
+            let state = BranchState(localChanges, localCommits, remoteCommits)
+            return BranchInfo(branch, state)
+        }
+    }
+
     // MARK: - Private
 
     private func parseBranches(_ out: String) -> [Branch] {

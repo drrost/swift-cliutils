@@ -23,6 +23,7 @@ public protocol IGitUtil {
     func branchHasRemote(_ name: String) throws -> Bool
 
     func localBranches() throws -> [Branch]
+    func getInfo(for branches: [Branch]) throws -> [BranchInfo]
     func switchTo(_ branch: Branch) throws
 }
 
