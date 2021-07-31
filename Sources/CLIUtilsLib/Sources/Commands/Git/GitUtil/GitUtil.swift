@@ -8,7 +8,7 @@
 import Foundation
 import RDError
 
-class GitUtil {
+public class GitUtil {
 
     // MARK: - Private
 
@@ -16,7 +16,7 @@ class GitUtil {
 
     // MARK: - Public
 
-    static func `default`(
+    public static func `default`(
         _ path: String, _ shellRunner: IShellRunner) -> IGitUtil {
 
         GitUtilImpl(path, shellRunner)

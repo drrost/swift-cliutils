@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol IGitUtil {
+public protocol IGitUtil {
 
     init(_ path: String, _ shellRunner: IShellRunner)
 
@@ -26,7 +26,7 @@ protocol IGitUtil {
     func switchTo(_ branch: Branch) throws
 }
 
-extension IGitUtil {
+public extension IGitUtil {
 
     func getRepositoryState() throws -> GitRepositoryState {
 

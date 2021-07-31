@@ -7,19 +7,20 @@
 
 import Foundation
 
-class GitRepositoryState {
+public class GitRepositoryState {
 
-    let isValidGitRepository: Bool
-    let branchInfo: BranchInfo
+    public let isValidGitRepository: Bool
+    public let branchInfo: BranchInfo
 
-    init(_ isValidGitRepository: Bool,
-         _ branchInfo: BranchInfo) {
+    public init(
+        _ isValidGitRepository: Bool,
+        _ branchInfo: BranchInfo) {
 
         self.isValidGitRepository = isValidGitRepository
         self.branchInfo = branchInfo
     }
 
-    convenience init(
+    public convenience init(
         _ isValidGitRepository: Bool,
         _ localFilesChanged: Int,
         _ localCommits: Int,
