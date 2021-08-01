@@ -1,5 +1,5 @@
 //
-//  GitUtilImpl.swift
+//  ServideGitImpl.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 30.07.2021.
@@ -8,7 +8,7 @@
 import Foundation
 import RDError
 
-class GitUtilImpl: IGitUtil {
+class ServideGitImpl: IServideGit {
 
     let path: String
     let shellRunner: IShellRunner

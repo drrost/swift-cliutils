@@ -1,5 +1,5 @@
 //
-//  GitUtilImpl+LastCommit.swift
+//  ServideGitImpl+LastCommit.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 01.08.2021.
@@ -9,7 +9,7 @@ import Foundation
 import RDError
 import RDFoundation
 
-extension GitUtilImpl {
+extension ServideGitImpl {
 
     func getLastCommit(_ branch: Branch) throws -> Commit {
 

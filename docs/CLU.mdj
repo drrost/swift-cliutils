@@ -776,7 +776,7 @@
 											"top": 303,
 											"width": 65.71728515625,
 											"height": 13,
-											"text": "GitUtilImpl"
+											"text": "ServideGitImpl"
 										},
 										{
 											"_type": "LabelView",
@@ -4806,7 +4806,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "GitUtilImpl",
+					"name": "ServideGitImpl",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

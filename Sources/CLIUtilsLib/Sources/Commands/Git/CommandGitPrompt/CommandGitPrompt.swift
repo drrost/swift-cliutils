@@ -15,7 +15,7 @@ class CommandGitPrompt: CommandGit {
 
         try super.exec()
 
-        let state = try gitUtil.getRepositoryState()
+        let state = try serviceGit.getRepositoryState()
 
         let printer = GitStatusFormatter()
         let statusString = printer.getStatusString(for: state)

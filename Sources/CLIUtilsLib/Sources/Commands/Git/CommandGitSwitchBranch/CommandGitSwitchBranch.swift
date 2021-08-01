@@ -15,7 +15,7 @@ public class CommandGitSwitchBranch: CommandGit {
         try validateInput()
         try super.exec()
 
-        let branches = try gitUtil.localBranches()
+        let branches = try serviceGit.localBranches()
         let number = Int(arguments.operands[0])! - 1
 
         if number >= branches.count || number < 0 {
@@ -23,7 +23,7 @@ public class CommandGitSwitchBranch: CommandGit {
                 "Passed argument must be in the range [1..\(branches.count)]")
         }
 
-        try gitUtil.switchTo(branches[number])
+        try serviceGit.switchTo(branches[number])
     }
 
     public override func printUsage() {

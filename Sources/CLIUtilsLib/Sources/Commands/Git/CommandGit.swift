@@ -11,13 +11,13 @@ public class CommandGit: Command {
 
     // MARK: - Properties
 
-    var gitUtil: IGitUtil!
+    var serviceGit: IServideGit!
 
     // MARK: - Command
 
     open override func exec() throws {
 
         let path = CommandPwd().pwd()
-        gitUtil = GitUtil.default(path, shellRunner)
+        serviceGit = ServideGit.default(path, shellRunner)
     }
 }

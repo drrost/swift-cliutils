@@ -1,5 +1,5 @@
 //
-//  GitUtilTests.swift
+//  ServideGitTests.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 15.06.2021.
@@ -9,18 +9,18 @@ import XCTest
 
 @testable import CLIUtilsLib
 
-class GitUtilTests: XCTestCase {
+class ServideGitTests: XCTestCase {
 
     // MARK: - Variables
 
-    var sut: GitUtilImpl!
+    var sut: ServideGitImpl!
     var shellRunnerMock: ShellRunnerMock!
 
     // MARK: - Tests routines
 
     override func setUp() {
         shellRunnerMock = ShellRunnerMock()
-        sut = GitUtil.default("", shellRunnerMock) as? GitUtilImpl
+        sut = ServideGit.default("", shellRunnerMock) as? ServideGitImpl
         sut._isValidGitRepository = true
     }
 

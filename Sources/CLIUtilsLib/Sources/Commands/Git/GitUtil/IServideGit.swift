@@ -1,5 +1,5 @@
 //
-//  IGitUtil.swift
+//  IServideGit.swift
 //
 //
 //  Created by Rostyslav Druzhchenko on 15.06.2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol IGitUtil {
+public protocol IServideGit {
 
     init(_ path: String, _ shellRunner: IShellRunner)
 
@@ -28,7 +28,7 @@ public protocol IGitUtil {
     func getLastCommit(_ branch: Branch) throws -> Commit
 }
 
-public extension IGitUtil {
+public extension IServideGit {
 
     func getRepositoryState() throws -> GitRepositoryState {
 

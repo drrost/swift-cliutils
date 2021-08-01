@@ -13,8 +13,8 @@ public class CommandGitLocalBranches: CommandGit {
 
         try super.exec()
 
-        let branches = try gitUtil.localBranches()
-        let infos = try gitUtil.getInfo(for: branches)
+        let branches = try serviceGit.localBranches()
+        let infos = try serviceGit.getInfo(for: branches)
 
         let printer = GitBranchesFormatter()
         let branchesString = printer.getBranchesString(infos)
