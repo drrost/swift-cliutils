@@ -89,9 +89,8 @@ extension GitRepositoryState {
         _ name: String) {
 
         let branch = Branch(name)
-        let lastCommit = Commit("", Date(), "", "", "")
         let state = BranchState(localFilesChanged, localCommits, remoteCommits)
-        let info = BranchInfo(branch, state, lastCommit)
+        let info = BranchInfo(branch, state)
 
         self.init(isValidGitRepository, info)
     }

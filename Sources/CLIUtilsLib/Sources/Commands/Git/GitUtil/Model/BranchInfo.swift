@@ -11,11 +11,9 @@ public class BranchInfo {
 
     public let branch: Branch
     public let state: BranchState
-    public let lastCommit: Commit
 
-    public init(_ branch: Branch, _ state: BranchState, _ lastCommit: Commit) {
+    public init(_ branch: Branch, _ state: BranchState) {
         self.branch = branch
         self.state = state
-        self.lastCommit = lastCommit
     }
 }

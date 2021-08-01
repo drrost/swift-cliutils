@@ -47,8 +47,7 @@ public extension IGitUtil {
 
         let branch = Branch(name)
         let state = BranchState(changes, localCommits, remoteCommits)
-        let lastCommit = try getLastCommit(branch)
-        let branchInfo = BranchInfo(branch, state, lastCommit)
+        let branchInfo = BranchInfo(branch, state)
 
         return GitRepositoryState(isRepository, branchInfo)
     }
@@ -59,8 +58,7 @@ fileprivate extension BranchInfo {
     static func empty() -> BranchInfo {
         let branch = Branch("")
         let state = BranchState(0, 0, 0)
-        let commit = Commit.empty()
-        return BranchInfo(branch, state, commit)
+        return BranchInfo(branch, state)
     }
 }
 
