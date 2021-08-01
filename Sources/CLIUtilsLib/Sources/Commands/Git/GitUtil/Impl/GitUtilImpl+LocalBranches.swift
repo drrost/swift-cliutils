@@ -33,7 +33,8 @@ extension GitUtilImpl {
             let remoteCommits = try remoteCommits(branch.name)
 
             let state = BranchState(localChanges, localCommits, remoteCommits)
-            return BranchInfo(branch, state)
+            let lastCommit = try getLastCommit(branch)
+            return BranchInfo(branch, state, lastCommit)
         }
     }
 

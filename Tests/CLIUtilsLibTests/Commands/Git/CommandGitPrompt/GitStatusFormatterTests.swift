@@ -78,3 +78,21 @@ class GitStatusFormatterTests: XCTestCase {
         XCTAssertEqual(" \\e[0;31m(master) ▼4|▲3 (5)\\e[0m", result)
     }
 }
+
+extension GitRepositoryState {
+
+    public convenience init(
+        _ isValidGitRepository: Bool,
+        _ localFilesChanged: Int,
+        _ localCommits: Int,
+        _ remoteCommits: Int,
+        _ name: String) {
+
+        let branch = Branch(name)
+        let lastCommit = Commit("", Date(), "", "", "")
+        let state = BranchState(localFilesChanged, localCommits, remoteCommits)
+        let info = BranchInfo(branch, state, lastCommit)
+
+        self.init(isValidGitRepository, info)
+    }
+}

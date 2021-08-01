@@ -25,6 +25,7 @@ public protocol IGitUtil {
     func localBranches() throws -> [Branch]
     func getInfo(for branches: [Branch]) throws -> [BranchInfo]
     func switchTo(_ branch: Branch) throws
+    func getLastCommit(_ branch: Branch) throws -> Commit
 }
 
 public extension IGitUtil {
@@ -46,7 +47,8 @@ public extension IGitUtil {
 
         let branch = Branch(name)
         let state = BranchState(changes, localCommits, remoteCommits)
-        let branchInfo = BranchInfo(branch, state)
+        let lastCommit = try getLastCommit(branch)
+        let branchInfo = BranchInfo(branch, state, lastCommit)
 
         return GitRepositoryState(isRepository, branchInfo)
     }
@@ -57,6 +59,14 @@ fileprivate extension BranchInfo {
     static func empty() -> BranchInfo {
         let branch = Branch("")
         let state = BranchState(0, 0, 0)
-        return BranchInfo(branch, state)
+        let commit = Commit.empty()
+        return BranchInfo(branch, state, commit)
+    }
+}
+
+fileprivate extension Commit {
+
+    static func empty() -> Commit {
+        Commit("", Date(), "", "", "")
     }
 }
