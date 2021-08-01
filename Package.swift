@@ -23,15 +23,19 @@ let package = Package(
         .package(
             name: "RDError",
             url: "git@github.com:drrost/swift-error.git",
-            from: "1.0.0")
+            from: "1.0.0"),
+        .package(
+            name: "RDDI",
+            url: "git@github.com:drrost/rddi.git",
+            .exact("0.0.5")),
     ],
     targets: [
         .target(
             name: "CLIUtils",
-            dependencies: ["CLIUtilsLib"]),
+            dependencies: ["CLIUtilsLib", "RDDI"]),
         .target(
             name: "CLIUtilsLib",
-            dependencies: ["RDFoundation", "RDError"]),
+            dependencies: ["RDFoundation", "RDError", "RDDI"]),
         .testTarget(
             name: "CLIUtilsLibTests",
             dependencies: [

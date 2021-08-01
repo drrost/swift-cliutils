@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import RDDI
 
-public protocol IServideGit {
+public protocol IServideGit: IDependency {
 
     init(_ path: String, _ shellRunner: IShellRunner)
 

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "RDDI",
+        "repositoryURL": "git@github.com:drrost/rddi.git",
+        "state": {
+          "branch": null,
+          "revision": "14694362ee378a9a69734b3f278d05b1f704a942",
+          "version": "0.0.5"
+        }
+      },
+      {
         "package": "RDError",
         "repositoryURL": "git@github.com:drrost/swift-error.git",
         "state": {

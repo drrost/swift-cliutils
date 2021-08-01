@@ -9,7 +9,6 @@ import XCTest
 
 @testable import CLIUtilsLib
 
-
 class ShellRunnerMock: IShellRunner {
 
     func execute(_ line: String) -> ShellResult {

@@ -10,6 +10,12 @@ import RDError
 
 class ServideGitImpl: IServideGit {
 
+    // MARK: - IDependency
+
+    var name: String = "IServideGit"
+
+    // MARK: - Properties
+
     let path: String
     let shellRunner: IShellRunner
 

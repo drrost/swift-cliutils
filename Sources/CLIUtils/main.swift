@@ -8,6 +8,10 @@
 import Foundation
 import CLIUtilsLib
 import RDError
+import RDDI
+
+let configuration = ApplicationConfigurationClu()
+ApplicationContext.initialize(configuration)
 
 class Inner {
 

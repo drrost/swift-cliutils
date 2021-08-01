@@ -11,13 +11,5 @@ public class CommandGit: Command {
 
     // MARK: - Properties
 
-    var serviceGit: IServideGit!
-
-    // MARK: - Command
-
-    open override func exec() throws {
-
-        let path = CommandPwd().pwd()
-        serviceGit = ServideGit.default(path, shellRunner)
-    }
+    let serviceGit: IServideGit = DI("IServideGit")
 }
