@@ -16,7 +16,8 @@ public let COMMAND_LIST = [
 
     "git_prompt": CommandGitPrompt.self,
     "glb": CommandGitLocalBranches.self,
-    "gsb": CommandGitSwitchBranch.self
+    "grb": CommandGitRemoteBranches.self,
+    "gsb": CommandGitSwitchBranch.self,
 ]
 
 open class CommandFactory {
@@ -49,6 +50,8 @@ open class CommandFactory {
             return CommandGitPrompt(arguments)
         case "glb":
             return CommandGitLocalBranches(arguments)
+        case "grb":
+            return CommandGitRemoteBranches(arguments)
         case "gsb":
             return CommandGitSwitchBranch(arguments)
 

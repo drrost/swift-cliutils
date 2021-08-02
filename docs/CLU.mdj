@@ -1434,7 +1434,7 @@
 											"top": 455,
 											"width": 137.97900390625,
 											"height": 13,
-											"text": "GitBranchesFormatter"
+											"text": "GitBranchesLocalFormatter"
 										},
 										{
 											"_type": "LabelView",
@@ -4865,7 +4865,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "GitBranchesFormatter",
+					"name": "GitBranchesLocalFormatter",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

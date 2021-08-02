@@ -12,9 +12,7 @@ extension ServideGitImpl {
 
     func localBranches() throws -> [Branch] {
 
-        guard let isrepo = try? isValidGitRepository(), isrepo else {
-            throw RDError("There is no a repository in the current folder")
-        }
+        try throwIfNoRepository()
 
         let result = shellRunner.execute("cd \(path) && git branch")
         try result.throwIfError()
@@ -37,9 +35,9 @@ extension ServideGitImpl {
         }
     }
 
-    // MARK: - Private
+    // MARK: - Internal
 
-    private func parseBranches(_ out: String) -> [Branch] {
+    func parseBranches(_ out: String) -> [Branch] {
 
         let lines = out.split("\n")
 

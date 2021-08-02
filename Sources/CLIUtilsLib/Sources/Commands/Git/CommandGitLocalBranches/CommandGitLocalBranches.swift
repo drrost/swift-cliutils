@@ -16,7 +16,7 @@ public class CommandGitLocalBranches: CommandGit {
         let branches = try serviceGit.localBranches()
         let infos = try serviceGit.getInfo(for: branches)
 
-        let printer = GitBranchesFormatter()
+        let printer = GitBranchesLocalFormatter()
         let branchesString = printer.getBranchesString(infos)
 
         System.out.println(branchesString)

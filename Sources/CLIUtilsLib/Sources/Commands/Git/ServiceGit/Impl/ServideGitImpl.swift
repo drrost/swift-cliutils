@@ -96,6 +96,14 @@ class ServideGitImpl: IServideGit {
         let result = shellRunner.execute("cd \(path) && git checkout \(branch.name)")
         try result.throwIfError()
     }
+
+    // MARK: - Internal
+
+    func throwIfNoRepository() throws {
+        guard let isrepo = try? isValidGitRepository(), isrepo else {
+            throw RDError("There is no a repository in the current folder")
+        }
+    }
 }
 
 public extension ShellResult {

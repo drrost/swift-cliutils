@@ -24,6 +24,7 @@ public protocol IServideGit: IDependency {
     func branchHasRemote(_ name: String) throws -> Bool
 
     func localBranches() throws -> [Branch]
+    func remoteBranches() throws -> [Branch]
     func getInfo(for branches: [Branch]) throws -> [BranchInfo]
     func switchTo(_ branch: Branch) throws
     func getLastCommit(_ branch: Branch) throws -> Commit
